@@ -24,7 +24,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public MeasurementsApi provideMeasurementsApi(Retrofit retrofit) {
-        return retrofit.create(MeasurementsApi.class);
+    public FramesApi provideMeasurementsApi(Retrofit retrofit) {
+        return retrofit.create(FramesApi.class);
     }
 }

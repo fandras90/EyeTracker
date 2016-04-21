@@ -1,6 +1,6 @@
 package com.eyetracker.mobile.interactor;
 
-import com.eyetracker.mobile.interactor.measurements.MeasurementsInteractor;
+import com.eyetracker.mobile.interactor.frames.FramesInteractor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,7 +11,7 @@ import dagger.Provides;
 @Module
 public class InteractorModule {
     @Provides
-    public MeasurementsInteractor provideMeasurementsInteractor() {
-        return new MeasurementsInteractor();
+    public FramesInteractor provideMeasurementsInteractor() {
+        return new FramesInteractor();
     }
 }

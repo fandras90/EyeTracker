@@ -1,11 +1,11 @@
-package com.eyetracker.mobile.interactor.measurements;
+package com.eyetracker.mobile.interactor.frames;
 
 import org.greenrobot.eventbus.EventBus;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
-import com.eyetracker.mobile.interactor.measurements.event.GetMeasurementsEvent;
-import com.eyetracker.mobile.model.MeasurementsResult;
-import com.eyetracker.mobile.network.MeasurementsApi;
+import com.eyetracker.mobile.interactor.frames.event.GetFramesEvent;
+import com.eyetracker.mobile.model.FramesResult;
+import com.eyetracker.mobile.network.FramesApi;
 
 import javax.inject.Inject;
 
@@ -15,20 +15,20 @@ import retrofit2.Response;
 /**
  * Created by fabia on 4/20/2016.
  */
-public class MeasurementsInteractor {
+public class FramesInteractor {
 
     @Inject
-    MeasurementsApi measurementsApi;
+    FramesApi framesApi;
 
-    public MeasurementsInteractor() {
+    public FramesInteractor() {
         EyeTrackerApplication.injector.inject(this);
     }
 
     public void getMeasurements() {
-        Call<MeasurementsResult> measurementsResultCall = measurementsApi.getMeasurements();
-        GetMeasurementsEvent event = new GetMeasurementsEvent();
+        Call<FramesResult> framesResultCall = framesApi.getFrames();
+        GetFramesEvent event = new GetFramesEvent();
         try {
-            Response<MeasurementsResult> response = measurementsResultCall.execute();
+            Response<FramesResult> response = framesResultCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }

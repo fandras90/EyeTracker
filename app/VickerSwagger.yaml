@@ -1,0 +1,136 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Vicker API
+  description: API description for Vicker Android application
+  version: "1.0.0"
+# the domain of the service
+host: api.eyetracker.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /api
+produces:
+  - application/json
+paths:
+  /frames:
+    get:
+      summary: Measured frames
+      description: The Frames endpoint returns items from all previous uploads of the user.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.
+      parameters:
+        - name: offset
+          in: query
+          type: integer
+          format: int32
+          description: Offset the list of returned results by this amount. Default is zero.
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          description: Number of items to retrieve. Default is 5, maximum is 100.
+      tags:
+        - Frame
+      responses:
+        200:
+          description: Frames for the given user
+          schema:
+            $ref: "#/definitions/Frames"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+  /frames/id:
+    get:
+      summary: Specific Frame
+      description: The Specific Frame endpoint returns the frame with the given id.
+      parameters:
+        - name: id
+          in: query
+          description: Id of the frame
+          required: true
+          type: string
+      tags:
+        - Frame
+      responses:
+        200:
+          description: The frame with given id
+          schema:
+            $ref: "#/definitions/Frame"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+  /me:
+    get:
+      summary: User Profile
+      description: The User Profile endpoint returns information about the EyeTracker user that has authorized with the application.
+      tags:
+        - User
+      responses:
+        200:
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Profile:
+    type: object
+    properties:
+      first_name:
+        type: string
+        description: First name of the EyeTracker user
+      last_name:
+        type: string
+        description: Last name of the EyeTracker user
+      email:
+        type: string
+        description: Email address of the EyeTracker user
+      picture:
+        type: string
+        description: Image URL of the EyeTracker user
+  Frame:
+    type: object
+    properties:
+      uuid:
+        type: string
+        description: Unique identifier for the frame
+      left_center:
+        type: number
+        description: Left eye coordinates
+      right_center:
+        type: number
+        description: Left eye coordinates
+  Frames:
+    type: object
+    properties:
+      offset:
+        type: integer
+        format: int32
+        description: Position in pagination
+      limit:
+        type: integer
+        format: int32
+        description: Number of items to retrieve (100 max)
+      count:
+        type: integer
+        format: int32
+        description: Total number of items available
+      frames:
+        type: array
+        items:
+          $ref: "#/definitions/Frame"
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

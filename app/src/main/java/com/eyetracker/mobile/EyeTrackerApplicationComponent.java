@@ -4,7 +4,7 @@ import dagger.Component;
 import javax.inject.Singleton;
 
 import com.eyetracker.mobile.interactor.InteractorModule;
-import com.eyetracker.mobile.interactor.measurements.MeasurementsInteractor;
+import com.eyetracker.mobile.interactor.frames.FramesInteractor;
 import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.main.MainActivity;
@@ -19,7 +19,7 @@ public interface EyeTrackerApplicationComponent {
 
 //    void inject(ArtistsFragment artistsFragment);
 //
-    void inject(MeasurementsInteractor measurementsInteractor);
+    void inject(FramesInteractor measurementsInteractor);
 //
 //    void inject(ArtistsPresenter artistsPresenter);
 }

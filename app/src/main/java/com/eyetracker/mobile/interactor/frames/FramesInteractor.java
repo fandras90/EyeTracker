@@ -7,6 +7,8 @@ import com.eyetracker.mobile.interactor.frames.event.GetFramesEvent;
 import com.eyetracker.mobile.model.FramesResult;
 import com.eyetracker.mobile.network.FramesApi;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -25,10 +27,10 @@ public class FramesInteractor {
     }
 
     public void getMeasurements() {
-        Call<FramesResult> framesResultCall = framesApi.getFrames();
+        Call<List<FramesResult>> framesResultCall = framesApi.getFrames();
         GetFramesEvent event = new GetFramesEvent();
         try {
-            Response<FramesResult> response = framesResultCall.execute();
+            Response<List<FramesResult>> response = framesResultCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }

@@ -6,7 +6,7 @@ info:
   description: API description for Vicker Android application
   version: "1.0.0"
 # the domain of the service
-host: api.eyetracker.com
+host: api.vicker.com
 # array of all schemes that your API supports
 schemes:
   - https

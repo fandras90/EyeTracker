@@ -16,6 +16,4 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
-
-
 }

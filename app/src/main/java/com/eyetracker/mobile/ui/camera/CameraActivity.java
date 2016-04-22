@@ -17,6 +17,7 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import javax.inject.Inject;
@@ -30,6 +31,18 @@ public class CameraActivity  extends AppCompatActivity implements CvCameraViewLi
 
     @Inject
     CameraPresenter cameraPresenter;
+
+    @Override
+    public void showEyecenters(Size left, Size right)
+    {
+
+    }
+
+    @Override
+    public void discardResults()
+    {
+
+    }
 
     @Override
     public void onCameraViewStarted(int width, int height) {

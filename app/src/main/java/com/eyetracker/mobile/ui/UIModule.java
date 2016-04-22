@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.eyetracker.mobile.di.Network;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
-import com.eyetracker.mobile.ui.main.MainPresenter;
+import com.eyetracker.mobile.ui.main.FrameListPresenter;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -32,8 +32,8 @@ public class UIModule {
 
     @Provides
     @Singleton
-    public MainPresenter provideMainPresenter() {
-        return new MainPresenter();
+    public FrameListPresenter provideMainPresenter() {
+        return new FrameListPresenter();
     }
 
     @Provides

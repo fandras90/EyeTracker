@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
-import com.eyetracker.mobile.EyeTrackerApplicationComponent;
 import com.eyetracker.mobile.R;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
 
@@ -17,31 +16,31 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements MainScreen {
+public class FrameListActivity extends AppCompatActivity implements FrameListScreen {
 
     public static final String KEY_FRAMES = "KEY_FRAMES";
 
     @Inject
-    MainPresenter mainPresenter;
+    FrameListPresenter frameListPresenter;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
     @OnClick(R.id.fab)
     public void onClick(View view) {
-        mainPresenter.startCamera();
+        frameListPresenter.startCamera();
     }
 
     @Override
     public void startCamera() {
-        Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+        Intent intent = new Intent(FrameListActivity.this, CameraActivity.class);
         startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_framelist);
 
         EyeTrackerApplication.injector.inject(this);
 
@@ -53,12 +52,12 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     @Override
     protected void onStart() {
         super.onStart();
-        mainPresenter.attachScreen(this);
+        frameListPresenter.attachScreen(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mainPresenter.detachScreen();
+        frameListPresenter.detachScreen();
     }
 }

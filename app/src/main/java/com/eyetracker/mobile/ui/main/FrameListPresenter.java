@@ -5,10 +5,10 @@ import com.eyetracker.mobile.ui.Presenter;
 /**
  * Created by fabia on 4/20/2016.
  */
-public class MainPresenter extends Presenter<MainScreen> {
+public class FrameListPresenter extends Presenter<FrameListScreen> {
 
     @Override
-    public void attachScreen(MainScreen screen) {
+    public void attachScreen(FrameListScreen screen) {
         super.attachScreen(screen);
     }
 

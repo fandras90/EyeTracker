@@ -3,6 +3,7 @@ package com.eyetracker.mobile.ui;
 import android.content.Context;
 
 import com.eyetracker.mobile.di.Network;
+import com.eyetracker.mobile.ui.camera.CameraPresenter;
 import com.eyetracker.mobile.ui.main.MainPresenter;
 
 import java.util.concurrent.Executor;
@@ -34,13 +35,13 @@ public class UIModule {
     public MainPresenter provideMainPresenter() {
         return new MainPresenter();
     }
-//
-//    @Provides
-//    @Singleton
-//    public ArtistsPresenter provideArtistsPresenter() {
-//        return new ArtistsPresenter();
-//    }
-//
+
+    @Provides
+    @Singleton
+    public CameraPresenter provideCameraPresenter() {
+        return new CameraPresenter();
+    }
+
     @Provides
     @Singleton
     @Network

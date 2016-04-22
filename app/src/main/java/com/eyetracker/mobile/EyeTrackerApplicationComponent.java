@@ -7,6 +7,7 @@ import com.eyetracker.mobile.interactor.InteractorModule;
 import com.eyetracker.mobile.interactor.frames.FramesInteractor;
 import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
+import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.main.MainActivity;
 
 /**
@@ -17,9 +18,11 @@ import com.eyetracker.mobile.ui.main.MainActivity;
 public interface EyeTrackerApplicationComponent {
     void inject(MainActivity mainActivity);
 
+    void inject(CameraActivity cameraActivity);
+
 //    void inject(ArtistsFragment artistsFragment);
 //
-    void inject(FramesInteractor measurementsInteractor);
+    void inject(FramesInteractor framesInteractor);
 //
 //    void inject(ArtistsPresenter artistsPresenter);
 }

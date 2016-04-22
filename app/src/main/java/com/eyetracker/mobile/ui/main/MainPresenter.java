@@ -17,8 +17,10 @@ public class MainPresenter extends Presenter<MainScreen> {
         super.detachScreen();
     }
 
-//    public void showArtistsSearchList(
-//            String artistSearchTerm) {
-//        screen.showArtists(artistSearchTerm);
-//    }
+    public void startCamera() {
+        if (screen != null)
+            screen.startCamera();
+        else
+            ; // TODO ERROR?
+    }
 }

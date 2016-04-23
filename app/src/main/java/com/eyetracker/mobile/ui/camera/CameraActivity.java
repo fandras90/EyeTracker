@@ -46,7 +46,9 @@ public class CameraActivity  extends AppCompatActivity implements CvCameraViewLi
 
     @Override
     public void onCameraViewStarted(int width, int height) {
-
+        cameraPresenter.setWidth(width);
+        cameraPresenter.setHeight(height);
+        cameraPresenter.setMats();
     }
 
     @Override
@@ -56,7 +58,8 @@ public class CameraActivity  extends AppCompatActivity implements CvCameraViewLi
 
     @Override
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
-        return inputFrame.rgba();
+        return cameraPresenter.calculateEyeCenters(inputFrame);
+        //return inputFrame.rgba();
     }
 
     private CameraBridgeViewBase mOpenCvCameraView;

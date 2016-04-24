@@ -1,4 +1,4 @@
-package com.eyetracker.mobile.ui.main;
+package com.eyetracker.mobile.ui.framelist;
 
 import com.eyetracker.mobile.ui.Presenter;
 

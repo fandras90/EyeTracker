@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.eyetracker.mobile.di.Network;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
-import com.eyetracker.mobile.ui.main.FrameListPresenter;
+import com.eyetracker.mobile.ui.framelist.FrameListPresenter;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;

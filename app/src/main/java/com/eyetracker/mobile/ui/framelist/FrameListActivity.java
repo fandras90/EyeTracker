@@ -1,4 +1,4 @@
-package com.eyetracker.mobile.ui.main;
+package com.eyetracker.mobile.ui.framelist;
 
 import android.content.Intent;
 import android.os.Bundle;

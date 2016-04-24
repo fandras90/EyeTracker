@@ -1,12 +1,18 @@
 package com.eyetracker.mobile.ui.camera;
 
+import android.util.Log;
+
+import com.eyetracker.mobile.EyeTrackerApplication;
+import com.eyetracker.mobile.interactor.camera.ImageInteractor;
 import com.eyetracker.mobile.ui.Presenter;
 
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
-import org.opencv.core.Core;
+import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
+import org.opencv.core.MatOfByte;
+import org.opencv.imgcodecs.Imgcodecs;
+
+import javax.inject.Inject;
 
 /**
  * Created by fabia on 4/22/2016.
@@ -16,13 +22,20 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     private Mat mRgba;
     private Mat mGray;
     private Mat mIntermediate;
-    private Mat mTranspose;
     private int width;
     private int height;
+
+    @Inject
+    ImageInteractor imageInteractor;
 
     @Override
     public void attachScreen(CameraScreen screen) {
         super.attachScreen(screen);
+        EyeTrackerApplication.injector.inject(this);
+
+        if (!OpenCVLoader.initDebug()) {
+            Log.e("TEST", "Cannot connect to OpenCV Manager");
+        }
     }
 
     @Override
@@ -30,33 +43,31 @@ public class CameraPresenter extends Presenter<CameraScreen> {
         super.detachScreen();
     }
 
-    public void setMats() {
+    public void initialize(int width, int height) {
+        this.width = width;
+        this.height = height;
+
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         mIntermediate = new Mat(height, width, CvType.CV_8UC4);
         mGray = new Mat(height, width, CvType.CV_8UC1);
-
-        mTranspose = new Mat(width, width, CvType.CV_8UC4);  // NOTE width,width is NOT a typo
-
     }
 
-    public Mat calculateEyeCenters(CvCameraViewFrame inputFrame) {
-//        Imgproc.Canny(inputFrame.gray(), mIntermediate, 80, 100);
-  //      Imgproc.cvtColor(mIntermediate, mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
+    public void processRawImage(byte[] data) {
+        //mRgba.put(0, 0, data);
+        mRgba = Imgcodecs.imdecode(new MatOfByte(data), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
+        mIntermediate = imageInteractor.processMat(mRgba);
 
+        MatOfByte mob = new MatOfByte();
+        Imgcodecs.imencode(".png", mIntermediate, mob);
 
-        mRgba = inputFrame.rgba();
-        // Rotate mRgba 90 degrees
-        Core.transpose(mRgba, mTranspose);
-        Imgproc.resize(mTranspose, mIntermediate, mIntermediate.size(), 0, 0, 0);
-        Core.flip(mIntermediate, mRgba, 1);
-        return mRgba;
+        byte[] ret = mob.toArray();
+
+        screen.showProcessedImage(ret);
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void discard() {
+        screen.discardResults();
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }
+

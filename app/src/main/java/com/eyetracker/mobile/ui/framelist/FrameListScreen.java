@@ -1,4 +1,4 @@
-package com.eyetracker.mobile.ui.main;
+package com.eyetracker.mobile.ui.framelist;
 
 /**
  * Created by fabia on 4/20/2016.

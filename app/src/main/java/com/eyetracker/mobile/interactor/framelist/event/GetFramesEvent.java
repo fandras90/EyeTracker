@@ -1,4 +1,4 @@
-package com.eyetracker.mobile.interactor.frames.event;
+package com.eyetracker.mobile.interactor.framelist.event;
 
 import com.eyetracker.mobile.interactor.Event;
 import com.eyetracker.mobile.model.FrameResult;

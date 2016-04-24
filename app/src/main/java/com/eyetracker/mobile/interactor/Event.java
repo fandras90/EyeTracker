@@ -25,11 +25,11 @@ public class Event<P> {
         this.code = code;
     }
 
-    public P getArtists() {
+    public P getResult() {
         return result;
     }
 
-    public void setArtists(P param) {
+    public void setResult(P param) {
         this.result = param;
     }
 

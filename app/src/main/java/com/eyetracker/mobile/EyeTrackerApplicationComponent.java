@@ -1,15 +1,15 @@
 package com.eyetracker.mobile;
 
-import dagger.Component;
-import javax.inject.Singleton;
-
 import com.eyetracker.mobile.interactor.InteractorModule;
 import com.eyetracker.mobile.interactor.frames.FrameInteractor;
 import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
-import com.eyetracker.mobile.ui.camera.LiveActivity;
 import com.eyetracker.mobile.ui.main.FrameListActivity;
+
+import javax.inject.Singleton;
+
+import dagger.Component;
 
 /**
  * Created by fabia on 4/20/2016.
@@ -20,7 +20,6 @@ public interface EyeTrackerApplicationComponent {
     void inject(FrameListActivity mainActivity);
 
     void inject(CameraActivity cameraActivity);
-    void inject(LiveActivity cameraActivity);
 
 //    void inject(ArtistsFragment artistsFragment);
 //

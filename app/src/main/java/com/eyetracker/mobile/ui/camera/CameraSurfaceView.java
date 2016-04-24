@@ -1,11 +1,7 @@
 package com.eyetracker.mobile.ui.camera;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.hardware.Camera;
-import android.util.AttributeSet;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 

@@ -9,6 +9,7 @@ import android.view.View;
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.R;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
+import com.eyetracker.mobile.ui.camera.LiveActivity;
 
 import javax.inject.Inject;
 
@@ -33,7 +34,7 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
 
     @Override
     public void startCamera() {
-        Intent intent = new Intent(FrameListActivity.this, CameraActivity.class);
+        Intent intent = new Intent(FrameListActivity.this, LiveActivity.class);
         startActivity(intent);
     }
 

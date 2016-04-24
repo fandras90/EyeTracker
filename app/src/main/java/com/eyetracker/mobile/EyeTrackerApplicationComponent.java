@@ -8,6 +8,7 @@ import com.eyetracker.mobile.interactor.frames.FrameInteractor;
 import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
+import com.eyetracker.mobile.ui.camera.LiveActivity;
 import com.eyetracker.mobile.ui.main.FrameListActivity;
 
 /**
@@ -19,6 +20,7 @@ public interface EyeTrackerApplicationComponent {
     void inject(FrameListActivity mainActivity);
 
     void inject(CameraActivity cameraActivity);
+    void inject(LiveActivity cameraActivity);
 
 //    void inject(ArtistsFragment artistsFragment);
 //

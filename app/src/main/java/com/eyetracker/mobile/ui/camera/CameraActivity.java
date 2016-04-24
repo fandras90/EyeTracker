@@ -1,5 +1,6 @@
 package com.eyetracker.mobile.ui.camera;
 
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +29,9 @@ import javax.inject.Inject;
 public class CameraActivity  extends AppCompatActivity implements CvCameraViewListener2, CameraScreen {
 
     public static final String KEY_CAMERA = "KEY_CAMERA";
+
+    private Camera camera;
+    private CameraSurfaceView preview;
 
     @Inject
     CameraPresenter cameraPresenter;
@@ -59,7 +63,6 @@ public class CameraActivity  extends AppCompatActivity implements CvCameraViewLi
     @Override
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
         return cameraPresenter.calculateEyeCenters(inputFrame);
-        //return inputFrame.rgba();
     }
 
     private CameraBridgeViewBase mOpenCvCameraView;

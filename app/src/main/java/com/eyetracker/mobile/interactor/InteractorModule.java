@@ -1,7 +1,7 @@
 package com.eyetracker.mobile.interactor;
 
 import com.eyetracker.mobile.interactor.camera.ImageInteractor;
-import com.eyetracker.mobile.interactor.framelist.FrameInteractor;
+import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 
 import dagger.Module;
 import dagger.Provides;

@@ -24,11 +24,11 @@ android {
     productFlavors {
         mock {
             applicationId "com.eyetracker.mobile.mock"
-            buildConfigField 'String', "FLAVOR", "mock"
+            //buildConfigField 'String', "FLAVOR", "mock"
         }
         production {
             applicationId "com.eyetracker.mobile"
-            buildConfigField 'String', "FLAVOR", "production"
+            //buildConfigField 'String', "FLAVOR", "production"
         }
     }
 

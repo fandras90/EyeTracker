@@ -5,4 +5,5 @@ package com.eyetracker.mobile.network;
  */
 public class NetworkConfig {
     public static final String ENDPOINT_ADDRESS = "https://api.spotify.com/v1/";
+    public static final String MOCK_ENDPOINT_ADDRESS = "https://api.spotify.com/v1/";
 }

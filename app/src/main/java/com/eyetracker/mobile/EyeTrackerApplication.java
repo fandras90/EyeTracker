@@ -15,9 +15,16 @@ public class EyeTrackerApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        injector =
-                DaggerEyeTrackerApplicationComponent.builder().
-                        uIModule(new UIModule(this)).build();
+        switch (BuildConfig.FLAVOR) {
+            case "production":
+                injector =
+                        DaggerEyeTrackerApplicationComponent.builder().
+                                uIModule(new UIModule(this)).build();
+            case "mock":
+                injector =
+                        DaggerEyeTrackerMockApplicationComponent.builder().
+                                uIModule(new UIModule(this)).build();
+        }
     }
 
 }

@@ -1,6 +1,6 @@
-package com.eyetracker.mobile.network;
+package com.eyetracker.mobile.network.frame;
 
-import com.eyetracker.mobile.model.FrameResult;
+import com.eyetracker.mobile.model.frame.FrameResult;
 
 import java.util.List;
 

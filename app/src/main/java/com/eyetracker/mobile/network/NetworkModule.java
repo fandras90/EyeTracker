@@ -1,5 +1,8 @@
 package com.eyetracker.mobile.network;
 
+import com.eyetracker.mobile.BuildConfig;
+import com.eyetracker.mobile.network.frame.FramesApi;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,10 +19,18 @@ public class NetworkModule {
     @Provides
     @Singleton
     public Retrofit provideRetrofit() {
-        return new Retrofit.Builder()
-                .baseUrl(NetworkConfig.ENDPOINT_ADDRESS)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        if (BuildConfig.FLAVOR == "production")
+            return new Retrofit.Builder()
+                    .baseUrl(NetworkConfig.ENDPOINT_ADDRESS)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        else if (BuildConfig.FLAVOR == "mock")
+            return new Retrofit.Builder()
+                    .baseUrl(NetworkConfig.MOCK_ENDPOINT_ADDRESS)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+        else return null;
     }
 
     @Provides

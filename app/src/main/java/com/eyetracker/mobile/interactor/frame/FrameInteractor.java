@@ -1,11 +1,11 @@
-package com.eyetracker.mobile.interactor.framelist;
+package com.eyetracker.mobile.interactor.frame;
 
 import org.greenrobot.eventbus.EventBus;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
-import com.eyetracker.mobile.interactor.framelist.event.GetFramesEvent;
-import com.eyetracker.mobile.model.FrameResult;
-import com.eyetracker.mobile.network.FramesApi;
+import com.eyetracker.mobile.interactor.frame.event.GetFramesEvent;
+import com.eyetracker.mobile.model.frame.FrameResult;
+import com.eyetracker.mobile.network.frame.FramesApi;
 
 import java.util.List;
 

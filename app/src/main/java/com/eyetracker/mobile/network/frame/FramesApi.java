@@ -1,6 +1,6 @@
 package com.eyetracker.mobile.network.frame;
 
-import com.eyetracker.mobile.model.frame.FrameResult;
+import com.eyetracker.mobile.model.frame.Frame;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ import retrofit2.http.GET;
  */
 public interface FramesApi {
     @GET("search")
-    Call<List<FrameResult>> getFrames();
+    Call<List<Frame>> getFrames();
 }

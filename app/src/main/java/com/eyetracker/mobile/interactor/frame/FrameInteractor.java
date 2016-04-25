@@ -4,7 +4,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.interactor.frame.event.GetFramesEvent;
-import com.eyetracker.mobile.model.frame.FrameResult;
+import com.eyetracker.mobile.model.frame.Frame;
 import com.eyetracker.mobile.network.frame.FramesApi;
 
 import java.util.List;
@@ -27,10 +27,10 @@ public class FrameInteractor {
     }
 
     public void getFrames() {
-        Call<List<FrameResult>> frameResultCall = framesApi.getFrames();
+        Call<List<Frame>> frameResultCall = framesApi.getFrames();
         GetFramesEvent event = new GetFramesEvent();
         try {
-            Response<List<FrameResult>> response = frameResultCall.execute();
+            Response<List<Frame>> response = frameResultCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }

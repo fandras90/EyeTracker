@@ -11,6 +11,7 @@ import dagger.Provides;
  */
 @Module
 public class InteractorModule {
+
     @Provides
     public FrameInteractor provideFrameInteractor() {
         return new FrameInteractor();
@@ -18,4 +19,5 @@ public class InteractorModule {
 
     @Provides
     public ImageInteractor provideImageInteractor() { return new ImageInteractor(); }
+
 }

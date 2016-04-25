@@ -4,6 +4,7 @@ package com.eyetracker.mobile.interactor;
  * Created by fabia on 4/22/2016.
  */
 public class Event<P> {
+
     private int code;
     private P result;
     private Throwable throwable;
@@ -40,4 +41,5 @@ public class Event<P> {
     public void setThrowable(Throwable throwable) {
         this.throwable = throwable;
     }
+
 }

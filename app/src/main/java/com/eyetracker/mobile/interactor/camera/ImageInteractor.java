@@ -35,4 +35,5 @@ public class ImageInteractor {
 
         return data;
     }
+
 }

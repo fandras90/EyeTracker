@@ -42,4 +42,5 @@ public class FrameInteractor {
             EventBus.getDefault().post(event);
         }
     }
+
 }

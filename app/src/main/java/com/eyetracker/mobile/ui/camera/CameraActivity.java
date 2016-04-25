@@ -28,7 +28,7 @@ import butterknife.OnClick;
  */
 public class CameraActivity  extends Activity implements CameraScreen {
 
-    public static final String KEY_CAMERA = "KEY_CAMERA";
+    public static final String TAG = "ACTIVITY_CAMERA";
 
     private Camera camera;
     private CameraSurfaceView preview;
@@ -72,7 +72,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i(KEY_CAMERA, "called onCreate");
+        Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 

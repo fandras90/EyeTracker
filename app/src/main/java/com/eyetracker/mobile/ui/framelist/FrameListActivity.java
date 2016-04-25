@@ -18,7 +18,7 @@ import butterknife.OnClick;
 
 public class FrameListActivity extends AppCompatActivity implements FrameListScreen {
 
-    public static final String KEY_FRAMES = "KEY_FRAMES";
+    public static final String TAG = "ACTIVITY_FRAMELIST";
 
     @Inject
     FrameListPresenter frameListPresenter;
@@ -57,7 +57,7 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
 
     @Override
     protected void onStop() {
-        super.onStop();
         frameListPresenter.detachScreen();
+        super.onStop();
     }
 }

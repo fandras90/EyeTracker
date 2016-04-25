@@ -7,6 +7,8 @@ import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
+import com.eyetracker.mobile.ui.framedetail.FrameDetailActivity;
+import com.eyetracker.mobile.ui.framedetail.FrameDetailScreen;
 import com.eyetracker.mobile.ui.framelist.FrameListActivity;
 
 import javax.inject.Singleton;
@@ -20,6 +22,8 @@ import dagger.Component;
 @Component(modules = {UIModule.class, ModelModule.class, NetworkModule.class, InteractorModule.class})
 public interface EyeTrackerApplicationComponent {
     void inject(FrameListActivity frameListActivity);
+
+    void inject(FrameDetailActivity frameDetailActivity);
 
     void inject(CameraActivity cameraActivity);
     void inject(CameraPresenter cameraPresenter);

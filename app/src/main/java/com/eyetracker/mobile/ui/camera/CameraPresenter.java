@@ -31,6 +31,7 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     @Override
     public void attachScreen(CameraScreen screen) {
         super.attachScreen(screen);
+
         EyeTrackerApplication.injector.inject(this);
 
         if (!OpenCVLoader.initDebug()) {

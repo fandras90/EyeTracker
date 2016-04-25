@@ -2,7 +2,6 @@ package com.eyetracker.mobile;
 
 import com.eyetracker.mobile.interactor.InteractorModule;
 import com.eyetracker.mobile.model.MockModelModule;
-import com.eyetracker.mobile.model.ModelModule;
 import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
 

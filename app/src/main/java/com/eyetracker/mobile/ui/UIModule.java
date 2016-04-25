@@ -6,6 +6,7 @@ import com.eyetracker.mobile.di.Network;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailPresenter;
 import com.eyetracker.mobile.ui.framelist.FrameListPresenter;
+import com.eyetracker.mobile.ui.upload.UploadPresenter;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -47,6 +48,12 @@ public class UIModule {
     @Singleton
     public CameraPresenter provideCameraPresenter() {
         return new CameraPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public UploadPresenter uploadPresenter() {
+        return new UploadPresenter();
     }
 
     @Provides

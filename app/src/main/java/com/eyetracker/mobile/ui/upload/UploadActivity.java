@@ -21,7 +21,7 @@ public class UploadActivity extends Activity implements UploadScreen {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_framedetail);
+        setContentView(R.layout.activity_upload);
 
         EyeTrackerApplication.injector.inject(this);
     }

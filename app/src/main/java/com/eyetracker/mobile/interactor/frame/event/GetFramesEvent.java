@@ -1,7 +1,7 @@
 package com.eyetracker.mobile.interactor.frame.event;
 
 import com.eyetracker.mobile.interactor.Event;
-import com.eyetracker.mobile.model.frame.Frame;
+import com.eyetracker.mobile.model.Frame;
 
 /**
  * Created by fabia on 4/20/2016.

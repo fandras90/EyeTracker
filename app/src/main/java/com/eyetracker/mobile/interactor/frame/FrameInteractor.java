@@ -4,8 +4,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.interactor.frame.event.GetFramesEvent;
-import com.eyetracker.mobile.model.frame.Frame;
-import com.eyetracker.mobile.network.frame.FramesApi;
+import com.eyetracker.mobile.model.Frame;
+import com.eyetracker.mobile.network.frame.FrameApi;
+import com.eyetracker.mobile.repository.IRepository;
 
 import java.util.List;
 
@@ -20,26 +21,29 @@ import retrofit2.Response;
 public class FrameInteractor {
 
     @Inject
-    FramesApi framesApi;
+    FrameApi frameApi;
+
+    @Inject
+    IRepository<Frame> frameRepository;
 
     public FrameInteractor() {
         EyeTrackerApplication.injector.inject(this);
     }
 
     public void getFrames() {
-        Call<List<Frame>> frameResultCall = framesApi.getFrames();
+        Call<List<Frame>> frameResultCall = frameApi.getFrames();
         GetFramesEvent event = new GetFramesEvent();
         try {
             Response<List<Frame>> response = frameResultCall.execute();
             if (response.code() != 200) {
                 throw new Exception("Result code is not 200");
             }
-            //event.setCode(response.code());
+            event.setCode(response.code());
             //event.setArtists(response.body().getArtists().getItems());
             EventBus.getDefault().post(event);
         } catch (Exception e) {
-            //event.setThrowable(e);
-            EventBus.getDefault().post(event);
+            event.setThrowable(e);
+            //eventBus.getDefault().post(event);
         }
     }
 

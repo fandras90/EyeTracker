@@ -2,13 +2,12 @@ package com.eyetracker.mobile;
 
 import com.eyetracker.mobile.interactor.InteractorModule;
 import com.eyetracker.mobile.interactor.frame.FrameInteractor;
-import com.eyetracker.mobile.model.ModelModule;
+import com.eyetracker.mobile.repository.RepositoryModule;
 import com.eyetracker.mobile.network.NetworkModule;
 import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailActivity;
-import com.eyetracker.mobile.ui.framedetail.FrameDetailScreen;
 import com.eyetracker.mobile.ui.framelist.FrameListActivity;
 import com.eyetracker.mobile.ui.upload.UploadActivity;
 
@@ -20,7 +19,7 @@ import dagger.Component;
  * Created by fabia on 4/20/2016.
  */
 @Singleton
-@Component(modules = {UIModule.class, ModelModule.class, NetworkModule.class, InteractorModule.class})
+@Component(modules = {UIModule.class, RepositoryModule.class, NetworkModule.class, InteractorModule.class})
 public interface EyeTrackerApplicationComponent {
 
     void inject(FrameListActivity frameListActivity);

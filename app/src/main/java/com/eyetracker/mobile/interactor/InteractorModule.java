@@ -1,7 +1,6 @@
 package com.eyetracker.mobile.interactor;
 
 import com.eyetracker.mobile.interactor.camera.ImageInteractor;
-import com.eyetracker.mobile.interactor.frame.FrameDBInteractor;
 import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 
 import dagger.Module;
@@ -20,8 +19,5 @@ public class InteractorModule {
 
     @Provides
     public ImageInteractor provideImageInteractor() { return new ImageInteractor(); }
-
-    @Provides
-    public FrameDBInteractor provideFrameDBInteractor() { return new FrameDBInteractor(); }
 
 }

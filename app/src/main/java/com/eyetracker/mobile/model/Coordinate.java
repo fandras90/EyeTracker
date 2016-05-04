@@ -1,4 +1,4 @@
-package com.eyetracker.mobile.model.frame;
+package com.eyetracker.mobile.model;
 
 import com.orm.SugarRecord;
 

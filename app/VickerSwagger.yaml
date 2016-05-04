@@ -41,13 +41,27 @@ paths:
           description: Unexpected error
           schema:
             $ref: "#/definitions/Error"
-  /frames/id:
+    post:
+      summary: Upload Frame
+      description: The Specific Frame endpoint creates a new frame.
+      tags:
+        - Frame
+      responses:
+        200:
+          description: The frame was successfully created
+          schema:
+            $ref: "#/definitions/Frame"
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+  /frames/{id}:
     get:
       summary: Specific Frame
       description: The Specific Frame endpoint returns the frame with the given id.
       parameters:
         - name: id
-          in: query
+          in: path
           description: Id of the frame
           required: true
           type: string
@@ -62,6 +76,25 @@ paths:
           description: Unexpected error
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      summary: Delete Frame
+      description: The Delete Frame endpoint deletes the frame with the given id.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the frame
+          required: true
+          type: string
+      tags:
+        - Frame
+      responses:
+        200:
+          description: Successful deletion
+        default:
+          description: Unexpected error
+          schema:
+            $ref: "#/definitions/Error"
+      
   /me:
     get:
       summary: User Profile
@@ -93,6 +126,17 @@ definitions:
       picture:
         type: string
         description: Image URL of the EyeTracker user
+  Coordinate:
+    type: object
+    properties:
+      xCoord:
+        type: number
+        format: float
+        description: X coordinate
+      yCoord:
+        type: number
+        format: float
+        description: Y coordinate
   Frame:
     type: object
     properties:
@@ -100,10 +144,10 @@ definitions:
         type: string
         description: Unique identifier for the frame
       left_center:
-        type: number
+        $ref: "#/definitions/Coordinate"
         description: Left eye coordinates
       right_center:
-        type: number
+        $ref: "#/definitions/Coordinate"
         description: Left eye coordinates
   Frames:
     type: object

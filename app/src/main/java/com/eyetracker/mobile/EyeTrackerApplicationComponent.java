@@ -9,6 +9,7 @@ import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailActivity;
 import com.eyetracker.mobile.ui.framelist.FrameListActivity;
+import com.eyetracker.mobile.ui.framelist.FrameListPresenter;
 import com.eyetracker.mobile.ui.upload.UploadActivity;
 
 import javax.inject.Singleton;
@@ -23,6 +24,7 @@ import dagger.Component;
 public interface EyeTrackerApplicationComponent {
 
     void inject(FrameListActivity frameListActivity);
+    void inject(FrameListPresenter frameListPresenter);
 
     void inject(FrameDetailActivity frameDetailActivity);
 

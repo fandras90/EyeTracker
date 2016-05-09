@@ -12,13 +12,23 @@ schemes:
   - https
 # will be prefixed to all paths
 basePath: /api
+consumes:
+  - application/json
+    application/x-www-form-urlencoded
+    application/xml
+    text/xml
 produces:
   - application/json
+    application/xml
+    text/xml
+    application/javascrip
+    text/javascript
 paths:
   /frames:
     get:
+      operationId: getFrames
       summary: Measured frames
-      description: The Frames endpoint returns items from all previous uploads of the user.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.
+      description: The Frames endpoint returns items from all previous uploads of the user. The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary.
       parameters:
         - name: offset
           in: query
@@ -42,8 +52,15 @@ paths:
           schema:
             $ref: "#/definitions/Error"
     post:
+      operationId: newFrame
       summary: Upload Frame
       description: The Specific Frame endpoint creates a new frame.
+      parameters:
+        - name: postBody
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Frame"
       tags:
         - Frame
       responses:
@@ -57,6 +74,7 @@ paths:
             $ref: "#/definitions/Error"
   /frames/{id}:
     get:
+      operationId: getFrameById
       summary: Specific Frame
       description: The Specific Frame endpoint returns the frame with the given id.
       parameters:
@@ -64,7 +82,7 @@ paths:
           in: path
           description: Id of the frame
           required: true
-          type: string
+          type: integer
       tags:
         - Frame
       responses:
@@ -77,6 +95,7 @@ paths:
           schema:
             $ref: "#/definitions/Error"
     delete:
+      operationId: deleteFrame
       summary: Delete Frame
       description: The Delete Frame endpoint deletes the frame with the given id.
       parameters:
@@ -84,7 +103,7 @@ paths:
           in: path
           description: Id of the frame
           required: true
-          type: string
+          type: integer
       tags:
         - Frame
       responses:
@@ -97,6 +116,7 @@ paths:
       
   /me:
     get:
+      operationId: getUser
       summary: User Profile
       description: The User Profile endpoint returns information about the EyeTracker user that has authorized with the application.
       tags:
@@ -116,16 +136,16 @@ definitions:
     properties:
       first_name:
         type: string
-        description: First name of the EyeTracker user
+        description: First name of the user
       last_name:
         type: string
-        description: Last name of the EyeTracker user
+        description: Last name of the user
       email:
         type: string
-        description: Email address of the EyeTracker user
-      picture:
+        description: Email address of the user
+      avatar:
         type: string
-        description: Image URL of the EyeTracker user
+        description: Image URL of the user
   Coordinate:
     type: object
     properties:
@@ -140,15 +160,20 @@ definitions:
   Frame:
     type: object
     properties:
-      uuid:
+      createdOn:
         type: string
-        description: Unique identifier for the frame
+        format: date-time
+        description: Date of creation
+      title:
+        type: string
+      filterType:
+        type: string
+      image:
+        $ref: "#/definitions/Image"
       left_center:
         $ref: "#/definitions/Coordinate"
-        description: Left eye coordinates
       right_center:
         $ref: "#/definitions/Coordinate"
-        description: Left eye coordinates
   Frames:
     type: object
     properties:
@@ -168,6 +193,17 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Frame"
+  Image:
+    type: object
+    properties:
+      width:
+        type: integer
+        format: int32
+      height:
+        type: integer
+        format: int32
+      url:
+        type: string
   Error:
     type: object
     properties:

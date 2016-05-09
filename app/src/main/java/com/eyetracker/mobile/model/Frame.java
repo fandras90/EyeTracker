@@ -12,6 +12,7 @@ public class Frame extends SugarRecord {
     private Date createdOn;
     private String title;
     private String filterType;
+    private Image image;
     private Coordinate leftCoordinates;
     private Coordinate rightCoordinates;
 
@@ -49,6 +50,14 @@ public class Frame extends SugarRecord {
 
     public void setFilterType(String filterType) {
         this.filterType = filterType;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Coordinate getLeftCoordinates() {

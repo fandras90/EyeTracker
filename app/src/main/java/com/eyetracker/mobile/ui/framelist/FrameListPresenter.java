@@ -64,8 +64,11 @@ public class FrameListPresenter extends Presenter<FrameListScreen> {
     public void startCamera() {
         if (screen != null)
             screen.startCamera();
-        else
-            ; // TODO ERROR?
+    }
+
+    public void showDetails(Long id) {
+        if (screen != null)
+            screen.showDetails(id);
     }
 
 }

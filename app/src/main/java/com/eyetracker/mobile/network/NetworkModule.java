@@ -16,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class NetworkModule {
+
     @Provides
     @Singleton
     public Retrofit provideRetrofit() {
@@ -38,4 +39,5 @@ public class NetworkModule {
     public FrameApi provideFrameApi(Retrofit retrofit) {
         return retrofit.create(FrameApi.class);
     }
+
 }

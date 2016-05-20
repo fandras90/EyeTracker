@@ -9,6 +9,8 @@ public interface FrameListScreen {
 
     void startCamera();
 
+    void showDetails(Long id);
+
     void showFrames(Frames frames);
 
     void showNetworkError(String errorMsg);

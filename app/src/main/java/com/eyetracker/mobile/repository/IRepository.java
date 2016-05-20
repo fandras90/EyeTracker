@@ -10,7 +10,7 @@ public interface IRepository<Item> {
     void insert(Item item);
     void delete(Item item);
     void update(Item item);
-    Item getById(Object id);
+    Item getById(Long id);
     List<Item> listAll();
 
 }

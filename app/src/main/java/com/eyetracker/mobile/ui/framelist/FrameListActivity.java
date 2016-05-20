@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
@@ -13,7 +15,9 @@ import com.eyetracker.mobile.R;
 import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Frames;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
+import com.eyetracker.mobile.ui.framedetail.FrameDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +29,7 @@ import butterknife.OnClick;
 public class FrameListActivity extends AppCompatActivity implements FrameListScreen {
 
     public static final String TAG = "ACTIVITY_FRAMELIST";
+    public static final String EXTRA_DETAIL = "EXTRA_DETAIL";
 
     private List<Frame> frameList;
     private FrameAdapter adapter;
@@ -36,6 +41,8 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
     Toolbar toolbar;
     @Bind(R.id.frames_swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.frames_recycler_view)
+    RecyclerView recyclerViewFrames;
 
     @OnClick(R.id.fab)
     public void onClick(View view) {
@@ -45,6 +52,13 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
     @Override
     public void startCamera() {
         Intent intent = new Intent(FrameListActivity.this, CameraActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showDetails(Long id) {
+        Intent intent = new Intent(FrameListActivity.this, FrameDetailActivity.class);
+        intent.putExtra(EXTRA_DETAIL, id);
         startActivity(intent);
     }
 
@@ -84,7 +98,21 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
 
         ButterKnife.bind(this);
 
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewFrames.setLayoutManager(llm);
+
+        frameList = new ArrayList();
+        adapter = new FrameAdapter(this, frameList);
+        recyclerViewFrames.setAdapter(adapter);
+
         setSupportActionBar(toolbar);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                frameListPresenter.refreshFrames();
+            }
+        });
     }
 
     @Override

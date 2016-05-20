@@ -51,7 +51,7 @@ public interface FrameApi {
      */
     @GET("frames/{id}")
     Call<Frame> getFrameById(
-            @Path("id") Integer id
+            @Path("id") Long id
     );
 
 

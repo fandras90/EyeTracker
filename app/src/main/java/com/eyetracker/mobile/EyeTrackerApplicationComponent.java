@@ -8,6 +8,8 @@ import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailActivity;
+import com.eyetracker.mobile.ui.framedetail.FrameDetailPresenter;
+import com.eyetracker.mobile.ui.framelist.FrameAdapter;
 import com.eyetracker.mobile.ui.framelist.FrameListActivity;
 import com.eyetracker.mobile.ui.framelist.FrameListPresenter;
 import com.eyetracker.mobile.ui.upload.UploadActivity;
@@ -25,8 +27,10 @@ public interface EyeTrackerApplicationComponent {
 
     void inject(FrameListActivity frameListActivity);
     void inject(FrameListPresenter frameListPresenter);
+    void inject(FrameAdapter frameAdapter);
 
     void inject(FrameDetailActivity frameDetailActivity);
+    void inject(FrameDetailPresenter frameDetailPresenter);
 
     void inject(CameraActivity cameraActivity);
     void inject(CameraPresenter cameraPresenter);

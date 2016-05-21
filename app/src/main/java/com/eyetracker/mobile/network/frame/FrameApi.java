@@ -3,8 +3,6 @@ package com.eyetracker.mobile.network.frame;
 import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Frames;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -14,7 +12,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by fabia on 4/20/2016.
+ * Created by fabia on 5/20/2016.
  */
 public interface FrameApi {
 
@@ -63,7 +61,7 @@ public interface FrameApi {
      */
     @DELETE("frames/{id}")
     Call<Void> deleteFrame(
-            @Path("id") Integer id
+            @Path("id") Long id
     );
 
 }

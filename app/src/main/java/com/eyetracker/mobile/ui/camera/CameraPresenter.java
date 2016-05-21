@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.interactor.camera.ImageInteractor;
+import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 import com.eyetracker.mobile.ui.Presenter;
 
 import org.opencv.android.OpenCVLoader;
@@ -27,6 +28,9 @@ public class CameraPresenter extends Presenter<CameraScreen> {
 
     @Inject
     ImageInteractor imageInteractor;
+
+    @Inject
+    FrameInteractor frameInteractor;
 
     @Override
     public void attachScreen(CameraScreen screen) {
@@ -68,6 +72,10 @@ public class CameraPresenter extends Presenter<CameraScreen> {
 
     public void discard() {
         screen.discardResults();
+    }
+
+    public void upload() {
+        frameInteractor.uploadFrame(mIntermediate);
     }
 
 }

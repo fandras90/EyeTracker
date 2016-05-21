@@ -1,5 +1,6 @@
 package com.eyetracker.mobile.ui.framelist;
 
+import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Frames;
 
 /**
@@ -9,7 +10,7 @@ public interface FrameListScreen {
 
     void startCamera();
 
-    void showDetails(Long id);
+    void showDetails(Frame frame);
 
     void showFrames(Frames frames);
 

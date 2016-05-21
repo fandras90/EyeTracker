@@ -4,6 +4,7 @@ import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.di.Network;
 import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 import com.eyetracker.mobile.interactor.frame.event.GetFramesEvent;
+import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.Presenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,9 +67,9 @@ public class FrameListPresenter extends Presenter<FrameListScreen> {
             screen.startCamera();
     }
 
-    public void showDetails(Long id) {
+    public void showDetails(Frame f) {
         if (screen != null)
-            screen.showDetails(id);
+            screen.showDetails(f);
     }
 
 }

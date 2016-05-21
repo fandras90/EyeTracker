@@ -29,7 +29,7 @@ import butterknife.OnClick;
 public class FrameListActivity extends AppCompatActivity implements FrameListScreen {
 
     public static final String TAG = "ACTIVITY_FRAMELIST";
-    public static final String EXTRA_DETAIL = "EXTRA_DETAIL";
+    public static final String EXTRA_FRAMEID = "EXTRA_FRAMEID";
 
     private List<Frame> frameList;
     private FrameAdapter adapter;
@@ -56,9 +56,9 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
     }
 
     @Override
-    public void showDetails(Long id) {
+    public void showDetails(Frame frame) {
         Intent intent = new Intent(FrameListActivity.this, FrameDetailActivity.class);
-        intent.putExtra(EXTRA_DETAIL, id);
+        intent.putExtra(EXTRA_FRAMEID, frame.getId());
         startActivity(intent);
     }
 
@@ -106,13 +106,20 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
         adapter = new FrameAdapter(this, frameList);
         recyclerViewFrames.setAdapter(adapter);
 
-        setSupportActionBar(toolbar);
+        recyclerViewFrames.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                frameListPresenter.showDetails(adapter.getFrame(position));
+            }
+        }));
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 frameListPresenter.refreshFrames();
             }
         });
+        setSupportActionBar(toolbar);
     }
 
     @Override

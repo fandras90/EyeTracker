@@ -51,6 +51,11 @@ public class CameraActivity  extends Activity implements CameraScreen {
         cameraPresenter.discard();
     }
 
+    @OnClick(R.id.btnUpload)
+    public void upload(View v) {
+        cameraPresenter.upload();
+    }
+
     @Override
     public void showProcessedImage(byte[] image) {
         ByteArrayInputStream imageStream = new ByteArrayInputStream(image);

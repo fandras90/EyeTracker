@@ -47,7 +47,7 @@ public class FrameDetailActivity extends Activity implements FrameDetailScreen {
 
         ButterKnife.bind(this);
 
-        Long id = getIntent().getLongExtra(FrameListActivity.EXTRA_DETAIL, -1);
+        Long id = getIntent().getLongExtra(FrameListActivity.EXTRA_FRAMEID, -1);
         frameDetailPresenter.getFrame(id);
     }
 

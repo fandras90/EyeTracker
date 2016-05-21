@@ -61,7 +61,11 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder> 
         return frameList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public Frame getFrame(int position) {
+        return frameList.get(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView ivImage;
         public TextView tvTitle;
@@ -79,10 +83,6 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder> 
             tvRightCoord = (TextView) itemView.findViewById(R.id.tvRightCoord);
         }
 
-        @Override
-        public void onClick(View v) {
-            frameListPresenter.showDetails(id);
-        }
     }
 
 }

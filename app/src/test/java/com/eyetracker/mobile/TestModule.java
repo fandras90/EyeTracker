@@ -62,12 +62,6 @@ public class TestModule {
 
     @Provides
     @Singleton
-    public IRepository<Frame> provideFrameRepository() {
-        return new FrameRepository();
-    }
-
-    @Provides
-    @Singleton
     @Network
     public Executor provideNetworkExecutor() {
         return new UiExecutor();

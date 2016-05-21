@@ -64,8 +64,4 @@ public class FrameDetailPresenter extends Presenter<FrameDetailScreen> {
         }
     }
 
-    public void showFrame(Frame f) {
-        screen.showFrame(f);
-    }
-
 }

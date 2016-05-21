@@ -1,5 +1,6 @@
 package com.eyetracker.mobile.interactor.camera;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -32,6 +33,9 @@ public class ImageInteractor {
 
         if (isApplyGaussian)
             Imgproc.GaussianBlur(data, data, new Size(3, 3), 0, 0);
+
+        Core.transpose(data, data);
+        Core.flip(data, data, 1);
 
         return data;
     }

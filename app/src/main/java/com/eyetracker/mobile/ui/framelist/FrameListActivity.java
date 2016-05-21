@@ -72,13 +72,13 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
         frameList.addAll(frames.getFrames());
         adapter.notifyDataSetChanged();
 
-//        if (frameList.isEmpty()) {
-//            recyclerViewArtists.setVisibility(View.GONE);
-//            tvEmpty.setVisibility(View.VISIBLE);
-//        } else {
-//            recyclerViewArtists.setVisibility(View.VISIBLE);
-//            tvEmpty.setVisibility(View.GONE);
-//        }
+        if (frameList.isEmpty()) {
+            recyclerViewFrames.setVisibility(View.GONE);
+            //tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            recyclerViewFrames.setVisibility(View.VISIBLE);
+            //tvEmpty.setVisibility(View.GONE);
+        }
     }
 
     @Override

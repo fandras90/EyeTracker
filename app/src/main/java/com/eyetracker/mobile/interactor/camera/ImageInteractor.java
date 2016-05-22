@@ -35,6 +35,7 @@ public class ImageInteractor {
             Imgproc.GaussianBlur(data, data, new Size(3, 3), 0, 0);
 
         Core.transpose(data, data);
+        Core.flip(data, data, 0);
         Core.flip(data, data, 1);
 
         return data;

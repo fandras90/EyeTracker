@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.opencv.core.Mat;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static com.eyetracker.mobile.TestHelper.setTestInjector;
@@ -29,6 +29,13 @@ public class CameraTest {
 
     private int width = 200, height = 400;
 
+//    static {
+//        if (!OpenCVLoader.initDebug()) {
+//        } else {
+//            System.loadLibrary("opencv_java3");
+//        }
+//    }
+
     @Before
     public void setup() throws Exception {
         setTestInjector();
@@ -44,9 +51,9 @@ public class CameraTest {
     public void testProcessImage() {
         byte[] data = new byte[]{};
         cameraPresenter.processRawImage(data);
-        ArgumentCaptor<byte[]> frameCaptor = ArgumentCaptor.forClass(
+        ArgumentCaptor<byte[]> imageCaptor = ArgumentCaptor.forClass(
                 byte[].class);
-        verify(cameraScreen).showProcessedImage(frameCaptor.capture());
+        verify(cameraScreen).showProcessedImage(imageCaptor.capture());
     }
 
     @Test
@@ -57,9 +64,10 @@ public class CameraTest {
 
     @Test
     public void testUploadImage() {
-        Mat mat = new Mat();
         cameraPresenter.upload();
-        verify(cameraScreen).uploadFrame(mat);
+        ArgumentCaptor<byte[]> imageCaptor = ArgumentCaptor.forClass(
+                byte[].class);
+        verify(cameraScreen).uploadFrame(imageCaptor.capture());
     }
 
     @After

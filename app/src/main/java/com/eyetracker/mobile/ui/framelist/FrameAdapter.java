@@ -52,8 +52,8 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder> 
         Glide.with(context).load(frame.getImage().getUrl()).into(holder.ivImage);
         holder.tvTitle.setText(frame.getTitle());
         holder.tvFilterType.setText(frame.getFilterType().toString());
-        holder.tvLeftCoord.setText(frame.getLeftCoordinates().toString());
-        holder.tvRightCoord.setText(frame.getRightCoordinates().toString());
+        holder.tvLeftCoord.setText(Float.toString(frame.getLeftCoordinates().getxCoord()) + Float.toString(frame.getLeftCoordinates().getyCoord()));
+        holder.tvRightCoord.setText(Float.toString(frame.getRightCoordinates().getxCoord()) + Float.toString(frame.getRightCoordinates().getyCoord()));
     }
 
     @Override

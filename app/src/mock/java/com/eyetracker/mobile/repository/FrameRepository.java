@@ -20,6 +20,7 @@ public class FrameRepository implements IRepository<Frame> {
         f1.setTitle("Title frame");
         f1.setLeftCoordinates(new Coordinate(0.3f, 25.23f));
         f1.setRightCoordinates(new Coordinate(342.23f, 123.32f));
+        f1.setFilterType("Filter");
         f1.setCreatedOn(new Date());
         f1.setImage(new Image());
         f1.getImage().setUrl("http://www.geek.com/wp-content/uploads/2013/11/eye-track-header.jpg");
@@ -29,6 +30,7 @@ public class FrameRepository implements IRepository<Frame> {
         f2.setTitle("Another frame");
         f2.setLeftCoordinates(new Coordinate(0.3f, 25.23f));
         f2.setRightCoordinates(new Coordinate(342.23f, 123.32f));
+        f2.setFilterType("OtherFilter");
         f2.setCreatedOn(new Date());
         f2.setImage(new Image());
         f2.getImage().setUrl("http://flaeyecenter.com/wp-content/uploads/2011/07/FeatureEye.jpg");

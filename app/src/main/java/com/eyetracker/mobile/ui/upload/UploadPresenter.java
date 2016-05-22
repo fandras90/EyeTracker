@@ -7,6 +7,8 @@ import com.eyetracker.mobile.ui.Presenter;
  */
 public class UploadPresenter extends Presenter<UploadScreen> {
 
+    private byte[] image;
+
     @Override
     public void attachScreen(UploadScreen screen) {
         super.attachScreen(screen);
@@ -15,6 +17,14 @@ public class UploadPresenter extends Presenter<UploadScreen> {
     @Override
     public void detachScreen() {
         super.detachScreen();
+    }
+
+    public void setUploadable(byte[] image) {
+        this.image = image;
+    }
+
+    public void uploadFrame(String text) {
+
     }
 
 }

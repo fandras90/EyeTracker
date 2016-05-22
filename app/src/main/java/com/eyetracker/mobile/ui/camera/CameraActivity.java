@@ -1,6 +1,7 @@
 package com.eyetracker.mobile.ui.camera;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -12,7 +13,9 @@ import android.widget.ImageView;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.R;
+import com.eyetracker.mobile.ui.upload.UploadActivity;
 
+import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 
@@ -30,6 +33,17 @@ import butterknife.OnClick;
 public class CameraActivity  extends Activity implements CameraScreen {
 
     public static final String TAG = "ACTIVITY_CAMERA";
+    public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
+
+    static {
+        if (!OpenCVLoader.initDebug()) {
+            // Handle initialization error
+            Log.i(TAG, "OpenCVLoader Failed");
+        } else {
+            Log.i(TAG, "OpenCVLoader Succeeded");
+            System.loadLibrary("opencv_java3");
+        }
+    }
 
     private Camera camera;
     private CameraSurfaceView preview;
@@ -72,8 +86,10 @@ public class CameraActivity  extends Activity implements CameraScreen {
     }
 
     @Override
-    public void uploadFrame(Mat mat) {
-
+    public void uploadFrame(byte[] image) {
+        Intent intent = new Intent(CameraActivity.this, UploadActivity.class);
+        intent.putExtra(EXTRA_IMAGE, image);
+        startActivity(intent);
     }
 
     @Override
@@ -95,6 +111,8 @@ public class CameraActivity  extends Activity implements CameraScreen {
     protected void onStart() {
         super.onStart();
         cameraPresenter.attachScreen(this);
+
+
 
         cameraPresenter.initialize(preview.getWidth(), preview.getHeight());
     }

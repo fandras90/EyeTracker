@@ -21,6 +21,7 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     private Mat mIntermediate;
     private int width;
     private int height;
+    private byte[] actualImage;
 
     @Inject
     ImageInteractor imageInteractor;
@@ -30,10 +31,6 @@ public class CameraPresenter extends Presenter<CameraScreen> {
         super.attachScreen(screen);
 
         EyeTrackerApplication.injector.inject(this);
-
-//        if (!OpenCVLoader.initDebug()) {
-//            Log.e("TEST", "Cannot connect to OpenCV Manager");
-//        }
     }
 
     @Override
@@ -58,9 +55,9 @@ public class CameraPresenter extends Presenter<CameraScreen> {
         MatOfByte mob = new MatOfByte();
         Imgcodecs.imencode(".png", mIntermediate, mob);
 
-        byte[] ret = mob.toArray();
+        actualImage = mob.toArray();
 
-        screen.showProcessedImage(ret);
+        screen.showProcessedImage(actualImage);
     }
 
     public void discard() {
@@ -68,7 +65,7 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     }
 
     public void upload() {
-        screen.uploadFrame(mIntermediate);
+        screen.uploadFrame(actualImage);
     }
 
 }

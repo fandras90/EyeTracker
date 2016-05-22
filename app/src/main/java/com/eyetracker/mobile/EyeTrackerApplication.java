@@ -1,6 +1,8 @@
 package com.eyetracker.mobile;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.eyetracker.mobile.ui.UIModule;
 import com.orm.SugarApp;
@@ -20,6 +22,12 @@ public class EyeTrackerApplication extends SugarApp {
                 DaggerEyeTrackerApplicationComponent.builder().
                         uIModule(new UIModule(this)).build();
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 }

@@ -2,6 +2,7 @@ package com.eyetracker.mobile.repository;
 
 import com.eyetracker.mobile.model.Coordinate;
 import com.eyetracker.mobile.model.Frame;
+import com.eyetracker.mobile.model.Image;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,8 @@ public class FrameRepository implements IRepository<Frame> {
         f1.setLeftCoordinates(new Coordinate(0.3f, 25.23f));
         f1.setRightCoordinates(new Coordinate(342.23f, 123.32f));
         f1.setCreatedOn(new Date());
+        f1.setImage(new Image());
+        f1.getImage().setUrl("http://www.geek.com/wp-content/uploads/2013/11/eye-track-header.jpg");
         f1.setId(0L);
 
         Frame f2 = new Frame();
@@ -27,6 +30,8 @@ public class FrameRepository implements IRepository<Frame> {
         f2.setLeftCoordinates(new Coordinate(0.3f, 25.23f));
         f2.setRightCoordinates(new Coordinate(342.23f, 123.32f));
         f2.setCreatedOn(new Date());
+        f2.setImage(new Image());
+        f2.getImage().setUrl("http://flaeyecenter.com/wp-content/uploads/2011/07/FeatureEye.jpg");
         f2.setId(1L);
 
         frames.add(f1);

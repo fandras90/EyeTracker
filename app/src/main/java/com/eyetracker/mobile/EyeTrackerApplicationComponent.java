@@ -2,8 +2,8 @@ package com.eyetracker.mobile;
 
 import com.eyetracker.mobile.interactor.InteractorModule;
 import com.eyetracker.mobile.interactor.frame.FrameInteractor;
-import com.eyetracker.mobile.network.MockFrameApi;
 import com.eyetracker.mobile.network.NetworkModule;
+import com.eyetracker.mobile.network.frame.FrameApi;
 import com.eyetracker.mobile.repository.RepositoryModule;
 import com.eyetracker.mobile.ui.UIModule;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
@@ -40,6 +40,6 @@ public interface EyeTrackerApplicationComponent {
 
     void inject(FrameInteractor frameInteractor);
 
-    void inject(MockFrameApi mockFrameApi);
+    void inject(FrameApi mockFrameApi);
 
 }

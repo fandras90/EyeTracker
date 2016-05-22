@@ -2,11 +2,8 @@ package com.eyetracker.mobile.test;
 
 import com.eyetracker.mobile.BuildConfig;
 import com.eyetracker.mobile.model.Frame;
-import com.eyetracker.mobile.model.Frames;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailPresenter;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailScreen;
-import com.eyetracker.mobile.ui.framelist.FrameListPresenter;
-import com.eyetracker.mobile.ui.framelist.FrameListScreen;
 import com.eyetracker.mobile.utils.RobolectricDaggerTestRunner;
 
 import org.junit.After;
@@ -53,6 +50,5 @@ public class FrameDetailTest {
     public void tearDown() {
         frameDetailPresenter.detachScreen();
     }
-
 
 }

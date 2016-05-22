@@ -1,13 +1,9 @@
 package com.eyetracker.mobile.ui.camera;
 
-import android.util.Log;
-
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.interactor.camera.ImageInteractor;
-import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 import com.eyetracker.mobile.ui.Presenter;
 
-import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -29,18 +25,15 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     @Inject
     ImageInteractor imageInteractor;
 
-    @Inject
-    FrameInteractor frameInteractor;
-
     @Override
     public void attachScreen(CameraScreen screen) {
         super.attachScreen(screen);
 
         EyeTrackerApplication.injector.inject(this);
 
-        if (!OpenCVLoader.initDebug()) {
-            Log.e("TEST", "Cannot connect to OpenCV Manager");
-        }
+//        if (!OpenCVLoader.initDebug()) {
+//            Log.e("TEST", "Cannot connect to OpenCV Manager");
+//        }
     }
 
     @Override
@@ -75,7 +68,7 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     }
 
     public void upload() {
-        frameInteractor.uploadFrame(mIntermediate);
+        screen.uploadFrame(mIntermediate);
     }
 
 }

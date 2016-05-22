@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.R;
 
+import org.opencv.core.Mat;
 import org.opencv.core.Size;
 
 import java.io.ByteArrayInputStream;
@@ -71,7 +72,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
     }
 
     @Override
-    public void upload() {
+    public void uploadFrame(Mat mat) {
 
     }
 

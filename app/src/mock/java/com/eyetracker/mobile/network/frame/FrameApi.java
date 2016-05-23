@@ -1,4 +1,4 @@
-package com.eyetracker.mobile.network;
+package com.eyetracker.mobile.network.frame;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.model.Frame;
@@ -22,12 +22,12 @@ import retrofit2.http.Query;
 /**
  * Created by fabia on 5/21/2016.
  */
-public class MockFrameApi implements FrameApi {
+public class FrameApi implements IFrameApi {
 
     @Inject
     IRepository<Frame> frameRepository;
 
-    public MockFrameApi() {
+    public FrameApi() {
         EyeTrackerApplication.injector.inject(this);
     }
 
@@ -80,20 +80,20 @@ public class MockFrameApi implements FrameApi {
     }
 
     @Override
-    public Call<Frame> uploadFrame(@Body Frame _postBody) {
+    public Call<Void> uploadFrame(@Body Frame _postBody) {
 
         final Frame frame = _postBody;
         frameRepository.insert(frame);
 
-        Call<Frame> call = new Call<Frame>() {
+        Call<Void> call = new Call<Void>() {
 
             @Override
-            public Response<Frame> execute() throws IOException {
-                return Response.success(frame);
+            public Response<Void> execute() throws IOException {
+                return Response.success(null);
             }
 
             @Override
-            public void enqueue(Callback<Frame> callback) {
+            public void enqueue(Callback<Void> callback) {
 
             }
 
@@ -113,7 +113,7 @@ public class MockFrameApi implements FrameApi {
             }
 
             @Override
-            public Call<Frame> clone() {
+            public Call<Void> clone() {
                 return null;
             }
 

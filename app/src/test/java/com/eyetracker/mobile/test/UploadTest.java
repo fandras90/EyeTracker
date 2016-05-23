@@ -1,6 +1,7 @@
 package com.eyetracker.mobile.test;
 
 import com.eyetracker.mobile.BuildConfig;
+import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.upload.UploadPresenter;
 import com.eyetracker.mobile.ui.upload.UploadScreen;
 import com.eyetracker.mobile.utils.RobolectricDaggerTestRunner;
@@ -25,18 +26,12 @@ public class UploadTest {
     private UploadPresenter uploadPresenter;
     private UploadScreen uploadScreen;
 
-    private byte[] image;
-
     @Before
     public void setup() throws Exception {
         setTestInjector();
         uploadScreen = mock(UploadScreen.class);
         uploadPresenter = new UploadPresenter();
         uploadPresenter.attachScreen(uploadScreen);
-
-        image = new byte[]{};
-
-        uploadPresenter.setUploadable(image);
     }
 
     @Test

@@ -38,6 +38,8 @@ public class FrameDetailActivity extends Activity implements FrameDetailScreen {
     @Inject
     FrameDetailPresenter frameDetailPresenter;
 
+    private Long id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +49,15 @@ public class FrameDetailActivity extends Activity implements FrameDetailScreen {
 
         ButterKnife.bind(this);
 
-        Long id = getIntent().getLongExtra(FrameListActivity.EXTRA_FRAMEID, -1);
-        frameDetailPresenter.getFrame(id);
+        id = getIntent().getLongExtra(FrameListActivity.EXTRA_FRAMEID, -1);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         frameDetailPresenter.attachScreen(this);
+
+        frameDetailPresenter.getFrame(id);
     }
 
     @Override

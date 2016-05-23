@@ -5,8 +5,8 @@ package com.eyetracker.mobile.ui.upload;
  */
 public interface UploadScreen {
 
-    void uploadFrame();
+    void showErrorMessage();
 
-    void showUploadedFrame();
+    void sendTitle(String title);
 
 }

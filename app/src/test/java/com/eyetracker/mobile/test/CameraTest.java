@@ -1,6 +1,7 @@
 package com.eyetracker.mobile.test;
 
 import com.eyetracker.mobile.BuildConfig;
+import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.camera.CameraPresenter;
 import com.eyetracker.mobile.ui.camera.CameraScreen;
 import com.eyetracker.mobile.utils.RobolectricDaggerTestRunner;
@@ -10,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static com.eyetracker.mobile.TestHelper.setTestInjector;
@@ -43,8 +43,6 @@ public class CameraTest {
         cameraScreen = mock(CameraScreen.class);
         cameraPresenter = new CameraPresenter();
         cameraPresenter.attachScreen(cameraScreen);
-
-        cameraPresenter.initialize(width, height);
     }
 
     @Test
@@ -65,8 +63,8 @@ public class CameraTest {
     @Test
     public void testUploadImage() {
         cameraPresenter.upload();
-        ArgumentCaptor<byte[]> imageCaptor = ArgumentCaptor.forClass(
-                byte[].class);
+        ArgumentCaptor<Frame> imageCaptor = ArgumentCaptor.forClass(
+                Frame.class);
         verify(cameraScreen).uploadFrame(imageCaptor.capture());
     }
 

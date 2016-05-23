@@ -4,8 +4,6 @@ import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.di.Network;
 import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 import com.eyetracker.mobile.interactor.frame.event.GetFrameEvent;
-import com.eyetracker.mobile.interactor.frame.event.GetFramesEvent;
-import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.Presenter;
 
 import org.greenrobot.eventbus.EventBus;

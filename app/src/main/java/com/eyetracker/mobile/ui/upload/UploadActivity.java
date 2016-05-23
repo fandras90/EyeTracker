@@ -5,15 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.R;
+import com.eyetracker.mobile.model.Coordinate;
+import com.eyetracker.mobile.model.Frame;
+import com.eyetracker.mobile.model.Image;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
+import com.eyetracker.mobile.ui.framelist.FrameListActivity;
+
+import java.util.Date;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by fabia on 4/25/2016.
@@ -21,14 +29,18 @@ import butterknife.ButterKnife;
 public class UploadActivity extends Activity implements UploadScreen {
 
     public static final String TAG = "ACTIVITY_UPLOAD";
+    public static final String EXTRA_RETURNTITLE = "EXTRA_RETURNTITLE";
 
     @Inject
     UploadPresenter uploadPresenter;
 
-    @Bind(R.id.btnUpload)
-    Button btnUpload;
     @Bind(R.id.etTitle)
     EditText etTitle;
+
+    @OnClick(R.id.btnUpload)
+    public void setTitle() {
+        uploadPresenter.uploadFrame(etTitle.getText().toString());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +50,6 @@ public class UploadActivity extends Activity implements UploadScreen {
         EyeTrackerApplication.injector.inject(this);
 
         ButterKnife.bind(this);
-
-        Intent intent = getIntent();
-        byte[] image = intent.getByteArrayExtra(CameraActivity.EXTRA_IMAGE);
-        uploadPresenter.setUploadable(image);
     }
 
     @Override
@@ -57,12 +65,16 @@ public class UploadActivity extends Activity implements UploadScreen {
     }
 
     @Override
-    public void uploadFrame() {
-        uploadPresenter.uploadFrame(etTitle.getText().toString());
+    public void showErrorMessage() {
+        Toast.makeText(this, "Empty title is not valid", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showUploadedFrame() {
-
+    public void sendTitle(String title) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(EXTRA_RETURNTITLE, title);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
+
 }

@@ -1,6 +1,7 @@
 package com.eyetracker.mobile.network;
 
 import com.eyetracker.mobile.network.frame.FrameApi;
+import com.eyetracker.mobile.network.frame.IFrameApi;
 
 import javax.inject.Singleton;
 
@@ -26,7 +27,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public FrameApi provideFrameApi(Retrofit retrofit) {
+    public IFrameApi provideFrameApi(Retrofit retrofit) {
         return retrofit.create(FrameApi.class);
     }
 

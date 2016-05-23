@@ -1,13 +1,17 @@
 package com.eyetracker.mobile.ui.camera;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
+import com.eyetracker.mobile.di.Network;
 import com.eyetracker.mobile.interactor.camera.ImageInteractor;
+import com.eyetracker.mobile.interactor.frame.FrameInteractor;
+import com.eyetracker.mobile.interactor.frame.event.UploadFrameEvent;
+import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.Presenter;
 
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.imgcodecs.Imgcodecs;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
@@ -16,15 +20,17 @@ import javax.inject.Inject;
  */
 public class CameraPresenter extends Presenter<CameraScreen> {
 
-    private Mat mRgba;
-    private Mat mGray;
-    private Mat mIntermediate;
-    private int width;
-    private int height;
-    private byte[] actualImage;
+    private Frame actualFrame;
+
+    @Inject
+    @Network
+    Executor networkExecutor;
 
     @Inject
     ImageInteractor imageInteractor;
+
+    @Inject
+    FrameInteractor frameInteractor;
 
     @Override
     public void attachScreen(CameraScreen screen) {
@@ -38,26 +44,10 @@ public class CameraPresenter extends Presenter<CameraScreen> {
         super.detachScreen();
     }
 
-    public void initialize(int width, int height) {
-        this.width = width;
-        this.height = height;
-
-        mRgba = new Mat(height, width, CvType.CV_8UC4);
-        mIntermediate = new Mat(height, width, CvType.CV_8UC4);
-        mGray = new Mat(height, width, CvType.CV_8UC1);
-    }
-
     public void processRawImage(byte[] data) {
-        //mRgba.put(0, 0, data);
-        mRgba = Imgcodecs.imdecode(new MatOfByte(data), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
-        mIntermediate = imageInteractor.processMat(mRgba);
+        actualFrame = imageInteractor.processMat(data);
 
-        MatOfByte mob = new MatOfByte();
-        Imgcodecs.imencode(".png", mIntermediate, mob);
-
-        actualImage = mob.toArray();
-
-        screen.showProcessedImage(actualImage);
+        screen.showProcessedImage(actualFrame.getImage().getData());
     }
 
     public void discard() {
@@ -65,7 +55,31 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     }
 
     public void upload() {
-        screen.uploadFrame(actualImage);
+        screen.uploadFrame(actualFrame);
+    }
+
+    public void startUpload(String title) {
+        actualFrame.setTitle(title);
+        networkExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                frameInteractor.uploadFrame(actualFrame);
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(final UploadFrameEvent event) {
+        if (event.getThrowable() != null) {
+            event.getThrowable().printStackTrace();
+            if (screen != null) {
+                screen.showNetworkError(event.getThrowable().getMessage());
+            }
+        } else {
+            if (screen != null) {
+                screen.showUploadSuccess();
+            }
+        }
     }
 
 }

@@ -12,9 +12,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by fabia on 5/20/2016.
+ * Created by fabia on 5/23/2016.
  */
-public interface FrameApi {
+public interface IFrameApi {
 
     /**
      * Measured frames
@@ -36,7 +36,7 @@ public interface FrameApi {
      * @return Call<Frame>
      */
     @POST("frames")
-    Call<Frame> uploadFrame(
+    Call<Void> uploadFrame(
             @Body Frame _postBody
     );
 

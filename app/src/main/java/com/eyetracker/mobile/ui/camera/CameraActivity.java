@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.R;
+import com.eyetracker.mobile.model.Coordinate;
+import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.upload.UploadActivity;
 
 import org.opencv.android.OpenCVLoader;
@@ -20,6 +23,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -33,11 +37,9 @@ import butterknife.OnClick;
 public class CameraActivity  extends Activity implements CameraScreen {
 
     public static final String TAG = "ACTIVITY_CAMERA";
-    public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
 
     static {
         if (!OpenCVLoader.initDebug()) {
-            // Handle initialization error
             Log.i(TAG, "OpenCVLoader Failed");
         } else {
             Log.i(TAG, "OpenCVLoader Succeeded");
@@ -57,7 +59,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
     ImageView iv_processed;
 
     @OnClick(R.id.btnRun)
-    public void calculate(View v) {
+    public void processImage(View v) {
         camera.takePicture(null, null, mPicture);
     }
 
@@ -80,25 +82,49 @@ public class CameraActivity  extends Activity implements CameraScreen {
 
     @Override
     public void discardResults() {
+        iv_processed.setImageBitmap(null);
+
         if (camera != null) {
             camera.startPreview();
         }
     }
 
     @Override
-    public void uploadFrame(byte[] image) {
+    public void uploadFrame(Frame frame) {
         Intent intent = new Intent(CameraActivity.this, UploadActivity.class);
-        intent.putExtra(EXTRA_IMAGE, image);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void showNetworkError(String errorMsg) {
+        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showUploadSuccess() {
+        Toast.makeText(this, "Successful upload", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String title = data.getStringExtra(UploadActivity.EXTRA_RETURNTITLE);
+                cameraPresenter.startUpload(title);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
         EyeTrackerApplication.injector.inject(this);
+
         ButterKnife.bind(this);
 
         camera = Camera.open(1);
@@ -111,10 +137,6 @@ public class CameraActivity  extends Activity implements CameraScreen {
     protected void onStart() {
         super.onStart();
         cameraPresenter.attachScreen(this);
-
-
-
-        cameraPresenter.initialize(preview.getWidth(), preview.getHeight());
     }
 
     @Override
@@ -126,10 +148,31 @@ public class CameraActivity  extends Activity implements CameraScreen {
         super.onStop();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        camera.stopPreview();
+        camera.release();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (camera != null) {
+            try {
+                camera.reconnect();
+                camera.startPreview();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken (byte[] data, Camera camera) {
             cameraPresenter.processRawImage(data);
         }
     };
+
 }

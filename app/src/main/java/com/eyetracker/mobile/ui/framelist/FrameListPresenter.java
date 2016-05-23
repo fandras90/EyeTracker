@@ -29,7 +29,9 @@ public class FrameListPresenter extends Presenter<FrameListScreen> {
     @Override
     public void attachScreen(FrameListScreen screen) {
         super.attachScreen(screen);
+
         EyeTrackerApplication.injector.inject(this);
+
         EventBus.getDefault().register(this);
     }
 

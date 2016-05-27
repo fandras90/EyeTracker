@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -26,10 +27,21 @@
         android:name=".EyeTrackerApplication"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="DATABASE" android:value="vicker.db" />
-        <meta-data android:name="VERSION" android:value="2" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.eyetracker.mobile.model" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="vicker.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.eyetracker.mobile.model" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3b956b52b0163ba5cdbe657a04f83ae3c25ee357" />
 
         <activity
             android:name=".ui.framelist.FrameListActivity"

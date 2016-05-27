@@ -1,18 +1,14 @@
 {
   "project_info": {
-    "project_id": "vicker-ddfa0",
     "project_number": "998226468970",
-    "name": "Vicker"
+    "project_id": "vicker-ddfa0"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:998226468970:android:2805c7a3bdeef4dc",
-        "client_id": "android:com.eyetracker.mobile",
-        "client_type": 1,
         "android_client_info": {
-          "package_name": "com.eyetracker.mobile.mock",
-          "certificate_hash": []
+          "package_name": "com.eyetracker.mobile.mock"
         }
       },
       "oauth_client": [
@@ -29,21 +25,21 @@
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPHNJLz3g7bsbjbkIVaX69gN5AU72GWGg"
+        }
+      ],
       "services": {
         "analytics_service": {
-          "status": 1
-        },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-78435631-1"
+          }
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 2
         },
         "ads_service": {
           "status": 1
@@ -51,6 +47,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+
 import org.robolectric.annotation.Config;
 
-import static com.eyetracker.mobile.TestHelper.setTestInjector;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -27,19 +27,8 @@ public class CameraTest {
     private CameraPresenter cameraPresenter;
     private CameraScreen cameraScreen;
 
-    private int width = 200, height = 400;
-
-//    static {
-//        if (!OpenCVLoader.initDebug()) {
-//        } else {
-//            System.loadLibrary("opencv_java3");
-//        }
-//    }
-
     @Before
     public void setup() throws Exception {
-        setTestInjector();
-
         cameraScreen = mock(CameraScreen.class);
         cameraPresenter = new CameraPresenter();
         cameraPresenter.attachScreen(cameraScreen);

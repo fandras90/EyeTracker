@@ -1,7 +1,6 @@
 package com.eyetracker.mobile.test;
 
 import com.eyetracker.mobile.BuildConfig;
-import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.upload.UploadPresenter;
 import com.eyetracker.mobile.ui.upload.UploadScreen;
 import com.eyetracker.mobile.utils.RobolectricDaggerTestRunner;
@@ -12,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import static com.eyetracker.mobile.TestHelper.setTestInjector;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -28,7 +26,6 @@ public class UploadTest {
 
     @Before
     public void setup() throws Exception {
-        setTestInjector();
         uploadScreen = mock(UploadScreen.class);
         uploadPresenter = new UploadPresenter();
         uploadPresenter.attachScreen(uploadScreen);
@@ -36,7 +33,9 @@ public class UploadTest {
 
     @Test
     public void testUpload() {
-
+        String title = "Title";
+        uploadPresenter.uploadFrame(title);
+        verify(uploadScreen).sendTitle(title);
     }
 
     @After

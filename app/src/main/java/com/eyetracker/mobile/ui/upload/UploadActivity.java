@@ -3,6 +3,7 @@ package com.eyetracker.mobile.ui.upload;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Image;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.framelist.FrameListActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.Date;
 
@@ -30,6 +33,9 @@ public class UploadActivity extends Activity implements UploadScreen {
 
     public static final String TAG = "ACTIVITY_UPLOAD";
     public static final String EXTRA_RETURNTITLE = "EXTRA_RETURNTITLE";
+    private static final String name = "Upload activity";
+
+    private Tracker tracker;
 
     @Inject
     UploadPresenter uploadPresenter;
@@ -47,6 +53,10 @@ public class UploadActivity extends Activity implements UploadScreen {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
+        // Obtain the shared Tracker instance.
+        EyeTrackerApplication application = (EyeTrackerApplication) getApplication();
+        tracker = application.getDefaultTracker();
+
         EyeTrackerApplication.injector.inject(this);
 
         ButterKnife.bind(this);
@@ -62,6 +72,15 @@ public class UploadActivity extends Activity implements UploadScreen {
     protected void onStop() {
         uploadPresenter.detachScreen();
         super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.i(TAG, "Setting screen name: " + name);
+        tracker.setScreenName("Image~" + name);
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

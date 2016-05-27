@@ -17,6 +17,8 @@ import com.eyetracker.mobile.R;
 import com.eyetracker.mobile.model.Coordinate;
 import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.upload.UploadActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
@@ -37,6 +39,9 @@ import butterknife.OnClick;
 public class CameraActivity  extends Activity implements CameraScreen {
 
     public static final String TAG = "ACTIVITY_CAMERA";
+    private static final String name = "Camera activity";
+
+    private Tracker tracker;
 
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -111,6 +116,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
             if(resultCode == Activity.RESULT_OK){
                 String title = data.getStringExtra(UploadActivity.EXTRA_RETURNTITLE);
                 cameraPresenter.startUpload(title);
+                iv_processed.setImageBitmap(null);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -123,12 +129,16 @@ public class CameraActivity  extends Activity implements CameraScreen {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        // Obtain the shared Tracker instance.
+        EyeTrackerApplication application = (EyeTrackerApplication) getApplication();
+        tracker = application.getDefaultTracker();
+
         EyeTrackerApplication.injector.inject(this);
 
         ButterKnife.bind(this);
 
-        camera = Camera.open(1);
-        preview = new CameraSurfaceView(this, camera);
+        //camera = Camera.open(1);
+        preview = new CameraSurfaceView(this, null);
 
         previewLayout.addView(preview);
     }
@@ -150,21 +160,29 @@ public class CameraActivity  extends Activity implements CameraScreen {
 
     @Override
     public void onPause() {
+        if(camera != null) {
+            camera.stopPreview();
+            preview.setCamera(null);
+            camera.release();
+            camera = null;
+        }
         super.onPause();
-        camera.stopPreview();
-        camera.release();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (camera != null) {
-            try {
-                camera.reconnect();
-                camera.startPreview();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+        Log.i(TAG, "Setting screen name: " + name);
+        tracker.setScreenName("Image~" + name);
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        try{
+            camera = Camera.open(1);
+            camera.startPreview();
+            preview.setCamera(camera);
+        } catch (RuntimeException ex){
+            Toast.makeText(this, "No camera no party", Toast.LENGTH_LONG).show();
         }
     }
 

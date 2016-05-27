@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Frames;
 import com.eyetracker.mobile.ui.camera.CameraActivity;
 import com.eyetracker.mobile.ui.framedetail.FrameDetailActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,9 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
 
     public static final String TAG = "ACTIVITY_FRAMELIST";
     public static final String EXTRA_FRAMEID = "EXTRA_FRAMEID";
+    private static final String name = "Frame list activity";
+
+    private Tracker tracker;
 
     private List<Frame> frameList;
     private FrameAdapter adapter;
@@ -94,6 +100,10 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_framelist);
 
+        // Obtain the shared Tracker instance.
+        EyeTrackerApplication application = (EyeTrackerApplication) getApplication();
+        tracker = application.getDefaultTracker();
+
         EyeTrackerApplication.injector.inject(this);
 
         ButterKnife.bind(this);
@@ -137,6 +147,11 @@ public class FrameListActivity extends AppCompatActivity implements FrameListScr
     @Override
     public void onResume() {
         super.onResume();
+
         frameListPresenter.refreshFrames();
+
+        Log.i(TAG, "Setting screen name: " + name);
+        tracker.setScreenName("Image~" + name);
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

@@ -1,7 +1,6 @@
 package com.eyetracker.mobile.test;
 
 import com.eyetracker.mobile.BuildConfig;
-import com.eyetracker.mobile.interactor.frame.FrameInteractor;
 import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Frames;
 import com.eyetracker.mobile.ui.framelist.FrameListPresenter;
@@ -15,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.robolectric.annotation.Config;
 
-import static com.eyetracker.mobile.TestHelper.setTestInjector;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -32,7 +30,6 @@ public class FrameListTest {
 
     @Before
     public void setup() throws Exception {
-        setTestInjector();
         frameListScreen = mock(FrameListScreen.class);
         frameListPresenter = new FrameListPresenter();
         frameListPresenter.attachScreen(frameListScreen);

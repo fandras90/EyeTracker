@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.robolectric.annotation.Config;
 
-import static com.eyetracker.mobile.TestHelper.setTestInjector;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -30,7 +29,6 @@ public class FrameDetailTest {
 
     @Before
     public void setup() throws Exception {
-        setTestInjector();
         frameDetailScreen = mock(FrameDetailScreen.class);
         frameDetailPresenter = new FrameDetailPresenter();
         frameDetailPresenter.attachScreen(frameDetailScreen);

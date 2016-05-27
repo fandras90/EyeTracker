@@ -72,6 +72,10 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         requestLayout();
     }
 
+    public void setCamera(Camera camera) {
+        mCamera = camera;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

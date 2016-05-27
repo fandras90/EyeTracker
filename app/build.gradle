@@ -23,6 +23,10 @@ android {
         }
     }
 
+//    ndk {
+//        moduleName = "imageProcessorJNI"
+//    }
+
     productFlavors {
         mock {
             applicationId "com.eyetracker.mobile.mock"

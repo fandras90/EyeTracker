@@ -50,6 +50,8 @@ public class CameraActivity  extends Activity implements CameraScreen {
             Log.i(TAG, "OpenCVLoader Succeeded");
             System.loadLibrary("opencv_java3");
         }
+
+        System.loadLibrary("imageProcessorJNI");
     }
 
     private Camera camera;
@@ -192,5 +194,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
             cameraPresenter.processRawImage(data);
         }
     };
+
+    //public native byte[] getNativeResult();
 
 }

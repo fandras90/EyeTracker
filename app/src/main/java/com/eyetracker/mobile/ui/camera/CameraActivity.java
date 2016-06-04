@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,18 +16,12 @@ import android.widget.Toast;
 
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.R;
-import com.eyetracker.mobile.model.Coordinate;
 import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.ui.upload.UploadActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -43,19 +39,12 @@ public class CameraActivity  extends Activity implements CameraScreen {
 
     private Tracker tracker;
 
-    static {
-        if (!OpenCVLoader.initDebug()) {
-            Log.i(TAG, "OpenCVLoader Failed");
-        } else {
-            Log.i(TAG, "OpenCVLoader Succeeded");
-            System.loadLibrary("opencv_java3");
-        }
-
-        System.loadLibrary("imageProcessorJNI");
-    }
-
     private Camera camera;
     private CameraSurfaceView preview;
+
+    private int width, height;
+
+    private Bitmap bm;
 
     @Inject
     CameraPresenter cameraPresenter;
@@ -81,10 +70,15 @@ public class CameraActivity  extends Activity implements CameraScreen {
     }
 
     @Override
-    public void showProcessedImage(byte[] image) {
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
-        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-        iv_processed.setImageBitmap(theImage);
+    public void showProcessedImage(int[] image) {
+        //Matrix matrix = new Matrix();
+        //matrix.postRotate(-90);
+
+        bm = Bitmap.createBitmap(image, width, height, Bitmap.Config.ARGB_8888);
+        //Bitmap rotated = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        //ByteArrayInputStream imageStream = new ByteArrayInputStream(image);
+        //Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+        iv_processed.setImageBitmap(bm);
     }
 
     @Override
@@ -139,9 +133,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
 
         ButterKnife.bind(this);
 
-        //camera = Camera.open(1);
         preview = new CameraSurfaceView(this, null);
-
         previewLayout.addView(preview);
     }
 
@@ -163,6 +155,7 @@ public class CameraActivity  extends Activity implements CameraScreen {
     @Override
     public void onPause() {
         if(camera != null) {
+            camera.setPreviewCallback(null);
             camera.stopPreview();
             preview.setCamera(null);
             camera.release();
@@ -182,7 +175,12 @@ public class CameraActivity  extends Activity implements CameraScreen {
         try{
             camera = Camera.open(1);
             camera.startPreview();
+            camera.getParameters().setPreviewFormat(ImageFormat.NV21);
+            width = camera.getParameters().getPreviewSize().width;
+            height = camera.getParameters().getPreviewSize().height;
+            cameraPresenter.setDimensions(width, height);
             preview.setCamera(camera);
+            camera.setPreviewCallback(previewCallback);
         } catch (RuntimeException ex){
             Toast.makeText(this, "No camera no party", Toast.LENGTH_LONG).show();
         }
@@ -195,6 +193,11 @@ public class CameraActivity  extends Activity implements CameraScreen {
         }
     };
 
-    //public native byte[] getNativeResult();
+    private Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
+        @Override
+        public void onPreviewFrame(byte[] data, Camera camera) {
+            cameraPresenter.processRawImage(data);
+        }
+    };
 
 }

@@ -7,7 +7,7 @@ import com.eyetracker.mobile.model.Frame;
  */
 public interface CameraScreen {
 
-    void showProcessedImage(byte[] image);
+    void showProcessedImage(int[] image);
 
     void discardResults();
 

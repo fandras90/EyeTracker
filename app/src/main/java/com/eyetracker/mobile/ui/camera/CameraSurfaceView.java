@@ -33,7 +33,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             mCamera.setDisplayOrientation(90);
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
-        } catch (IOException e) {
+        } catch (Exception e) {
 
         }
     }
@@ -91,4 +91,5 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             }
         }
     }
+
 }

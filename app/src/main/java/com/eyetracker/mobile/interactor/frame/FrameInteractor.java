@@ -1,18 +1,14 @@
 package com.eyetracker.mobile.interactor.frame;
 
-import com.eyetracker.mobile.BuildConfig;
 import com.eyetracker.mobile.EyeTrackerApplication;
 import com.eyetracker.mobile.interactor.frame.event.GetFrameEvent;
 import com.eyetracker.mobile.interactor.frame.event.GetFramesEvent;
 import com.eyetracker.mobile.interactor.frame.event.UploadFrameEvent;
 import com.eyetracker.mobile.model.Frame;
 import com.eyetracker.mobile.model.Frames;
-import com.eyetracker.mobile.network.frame.FrameApi;
 import com.eyetracker.mobile.network.frame.IFrameApi;
-import com.eyetracker.mobile.repository.IRepository;
 
 import org.greenrobot.eventbus.EventBus;
-import org.opencv.core.Mat;
 
 import javax.inject.Inject;
 

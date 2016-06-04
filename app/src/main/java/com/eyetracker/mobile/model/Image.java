@@ -20,7 +20,7 @@ public class Image implements Parcelable {
     private String url = null;
 
     @SerializedName("data")
-    private byte[] data = null;
+    private int[] data = null;
 
     public Image() {
     }
@@ -29,7 +29,7 @@ public class Image implements Parcelable {
         width = in.readInt();
         height = in.readInt();
         url = in.readString();
-        data = in.createByteArray();
+        data = in.createIntArray();
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {
@@ -68,11 +68,11 @@ public class Image implements Parcelable {
         this.url = url;
     }
 
-    public byte[] getData() {
+    public int[] getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public void setData(int[] data) {
         this.data = data;
     }
 
@@ -86,6 +86,6 @@ public class Image implements Parcelable {
         dest.writeInt(width);
         dest.writeInt(height);
         dest.writeString(url);
-        dest.writeByteArray(data);
+        dest.writeIntArray(data);
     }
 }

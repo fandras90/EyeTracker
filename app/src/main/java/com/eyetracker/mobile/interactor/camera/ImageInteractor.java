@@ -18,76 +18,68 @@ public class ImageInteractor {
     private final int areaSmall = area / 3;
     private final float EPSYLON = 0.001f;
 
-    int scale = 1;
-    int delta = 0;
-    //int ddepth = CvType.CV_32F; //CV_16S
-
     float threshold = 0.0f;
-
-    private final boolean isApplyContrast = true;
-    private final boolean isApplyGaussian = true;
-
-    private final float alpha = 1.8f;
-    private final float beta = 70.0f;
 
     private int blurKernel = area / 3;
 
-    private final String filterType = "SCHARR";
+    private Frame frame;
+    private Image image;
+    private Coordinate leftCoord, rightCoord;
 
-    private Coordinate leftCoord = new Coordinate(), rightCoord = new Coordinate();
+    private final double[][] configX;
+    private final double[][] configY;
+    private final ConvolutionMatrix convMatrixX;
+    private final ConvolutionMatrix convMatrixY;
 
-    public Frame processMat(byte[] data, int width, int height) {
+    private int[] result;
+    private int width, height;
 
-        if (data == null)
-            return null;
-
-        // init structures
-        Frame frame = new Frame();
+    public ImageInteractor() {
+        frame = new Frame();
+        image = new Image();
         leftCoord = new Coordinate();
         rightCoord = new Coordinate();
 
-        int size = width * height;
-        int offset = size;
+        configX = new double[][] {
+                {  -3, 0,  3 },
+                { -10, 0, 10 },
+                {  -3, 0,  3 }
+        };
+        configY = new double[][] {
+                { -10, -3, -10 },
+                {   0,  0,   0 },
+                {  10,  3,  10 }
+        };
 
-        int[] pixels = new int[size / 8 * 12];
+        convMatrixX = new ConvolutionMatrix(3);
+        convMatrixX.applyConfig(configX);
+        convMatrixX.Factor = 1;
+        convMatrixX.Offset = 0;
+
+        convMatrixY = new ConvolutionMatrix(3);
+        convMatrixY.applyConfig(configY);
+        convMatrixY.Factor = 1;
+        convMatrixY.Offset = 0;
+    }
+
+    public void setDimensions(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        result = new int[width * height];
+    }
+
+    public Frame processMat(byte[] data) {
+
+        if (data == null)
+            return null;
 
         // fix blur kernel
         if (blurKernel % 2 == 0)
             blurKernel++;
 
-        int yolo = data.length;
-        int p;
-        for (int i = 0; i < yolo; i++) {
-            p = data[i] & 0xFF;
-            pixels[i] = 0xff000000 | p << 16 | p << 8 | p;
-//            if (isApplyContrast) {
-//                pixels[i] *= alpha;
-//                pixels[i] += beta;
-//            }
-        }
+        ConvolutionMatrix.computeConvolution3x3(data, result, width, height, convMatrixX, convMatrixY);
 
-//        if (isApplyGaussian)
-//            Imgproc.GaussianBlur(img, img, new Size(3, 3), 0, 0);
-//
-        Size[] gradientField = new Size[size];
-//
-//        Mat gradX = new Mat(), gradY = new Mat();
-//        Mat absGradX = new Mat(), absGradY = new Mat();
-//        Mat grad = new Mat();
-//
-//        switch (filterType) {
-//            case "SCHARR":
-//                Imgproc.Scharr(img, gradX, ddepth, 1, 0, scale, delta);
-//                Imgproc.Scharr(img, gradY, ddepth, 0, 1, scale, delta);
-//            default:
-//                ;
-//        }
-//
-//        Core.convertScaleAbs(gradX, absGradX);
-//        Core.convertScaleAbs(gradY, absGradY);
-//
-//        Core.addWeighted(absGradX, 0.5, absGradY, 0.5, 0, grad);
-//
 //        for (int i = 0; i < gradX.rows(); i++) {
 //            for (int j = 0; j < gradX.cols(); j++) {
 //                double xVal = gradX.get(i, j)[0];
@@ -95,8 +87,6 @@ public class ImageInteractor {
 //                gradientField.put(i, j, xVal, yVal);
 //            }
 //        }
-//
-//        Imgproc.cvtColor(grad, grad, Imgproc.COLOR_GRAY2BGRA);
 //
 //        double qMax = calculateQMax(gradientField, flowResolution);
 //        threshold = (float)(qMax / 10) * 3;
@@ -180,11 +170,10 @@ public class ImageInteractor {
 //        rightCoord.setxCoord(30.3f);
 //        rightCoord.setyCoord(40.3f);
 
-        Image image = new Image();
         image.setWidth(width);
         image.setHeight(height);
         image.setUrl("http://www.geek.com/wp-content/uploads/2013/11/eye-track-header.jpg");
-        image.setData(pixels);
+        image.setData(result);
 
         frame.setImage(image);
         frame.setLeftCoordinates(leftCoord);

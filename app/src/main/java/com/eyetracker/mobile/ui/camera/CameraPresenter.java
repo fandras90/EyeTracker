@@ -21,7 +21,6 @@ import javax.inject.Inject;
 public class CameraPresenter extends Presenter<CameraScreen> {
 
     private Frame actualFrame;
-    private int width, height;
 
     @Inject
     @Network
@@ -46,12 +45,11 @@ public class CameraPresenter extends Presenter<CameraScreen> {
     }
 
     public void setDimensions(int width, int height) {
-        this.width = width;
-        this.height = height;
+        imageInteractor.setDimensions(width, height);
     }
 
     public void processRawImage(byte[] data) {
-        actualFrame = imageInteractor.processMat(data, width, height);
+        actualFrame = imageInteractor.processMat(data);
 
         screen.showProcessedImage(actualFrame.getImage().getData());
     }

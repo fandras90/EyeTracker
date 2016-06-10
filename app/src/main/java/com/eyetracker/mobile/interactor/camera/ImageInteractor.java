@@ -162,9 +162,6 @@ public class ImageInteractor {
 //        Core.flip(grad, grad, 0);
 //        Core.flip(grad, grad, 1);
 //
-//        MatOfByte mob = new MatOfByte();
-//        Imgcodecs.imencode(".png", grad, mob);
-//
 //        leftCoord.setxCoord(10.3f);
 //        leftCoord.setyCoord(20.3f);
 //        rightCoord.setxCoord(30.3f);

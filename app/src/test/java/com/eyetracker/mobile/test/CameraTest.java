@@ -38,8 +38,8 @@ public class CameraTest {
     public void testProcessImage() {
         byte[] data = new byte[]{};
         cameraPresenter.processRawImage(data);
-        ArgumentCaptor<byte[]> imageCaptor = ArgumentCaptor.forClass(
-                byte[].class);
+        ArgumentCaptor<int[]> imageCaptor = ArgumentCaptor.forClass(
+                int[].class);
         verify(cameraScreen).showProcessedImage(imageCaptor.capture());
     }
 
